@@ -1,0 +1,9 @@
+{
+  "execMap": {
+    "js": "node --inspect --use_strict --trace-warnings"
+  },
+  "env": {},
+  "ext": "js",
+  "ignore": ["scripts/*", "dist/*", "test/*"],
+  "watch": ["src/*"]
+}
