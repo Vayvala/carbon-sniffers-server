@@ -9,7 +9,7 @@
   },
   "main": "server.js",
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
   },
   "config": {
     "params": "--use_strict --trace-warnings --max-old-space-size=768"

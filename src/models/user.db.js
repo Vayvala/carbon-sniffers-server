@@ -33,12 +33,12 @@ async function createUser({deviceId, homeType, transportType, carHoursPerDay}) {
   if (!deviceId) throw new Error('Missing deviceId');
   if (!homeTypes.includes(homeType)) throw new Error(`Invalid homeType: ${homeType}`);
   if (!transportTypes.includes(transportType)) throw new Error(`Invalid transportTypes: ${homeType}`);
-  if (isNaN(Number(carHoursPerDay))) throw new Error(`Invalid carHoursPerDay: ${carHoursPerDay}`);
+  if (carHoursPerDay && isNaN(Number(carHoursPerDay))) throw new Error(`Invalid carHoursPerDay: ${carHoursPerDay}`);
   const newUser = await UserModel.create({
     deviceId,
     homeType,
     transportType,
-    carHoursPerDay,
+    carHoursPerDay: Number(carHoursPerDay) || 0,
   });
   return newUser;
 }
