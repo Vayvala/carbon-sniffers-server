@@ -15,7 +15,7 @@
     "params": "--use_strict --trace-warnings --max-old-space-size=768"
   },
   "scripts": {
-    "start": "set NODE_ENV=development&& set NODE_PATH=src&& node src/server.js",
+    "start": "export NODE_ENV=development&& export NODE_PATH=src&& node src/server.js",
     "dev": "set NODE_ENV=development&& set NODE_PATH=src&& nodemon src/server.js"
   },
   "repository": {
