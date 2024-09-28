@@ -12,7 +12,7 @@ async function wrap(args, callback, apiName) {
     if (apiName !== 'middleware') console.log(`[API][${apiName}] ${whitespaces}> ${callback.name}()`);
     await callback(args);
   } catch (error) {
-    console.error(error)
-    return args.res.status(500).send(error.stack || error.message || error);
+    console.error(error);
+    return args.res.status(500).send({error: error.stack || error.message || error});
   }
 }
