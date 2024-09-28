@@ -1,5 +1,5 @@
 
 module.exports = {
   USERS: 'Users'.toLowerCase(),
-  COMPLAINT: 'Complaint'.toLowerCase(),
+  COMPLAINTS: 'Complaints'.toLowerCase(),
 };

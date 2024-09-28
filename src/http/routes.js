@@ -9,6 +9,7 @@ module.exports = ({app}) => {
   app.use(middleware.parseQueryBooleansApi);
   /* Endpoints */
   app.post('/users', userApi.createUserEndpoint);
+  app.get('/kurwa', (req, res) => res.send('kurwa'));
   // app.post('/complaints', complaintsApi.createComplaintEndpoint);
   /* Reject */
   app.use(middleware.handleUnknownUrlApi);

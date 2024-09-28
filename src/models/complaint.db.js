@@ -37,7 +37,7 @@ const ComplaintModel = model(COLLECTION_NAME, schema);
 async function createComplaint({deviceId, complaintType}) {
   if (!deviceId) throw new Error('Missing deviceId');
   if (!complaintTypes.map(_ => _.name).include(complaintType)) {
-    throw new Error(`Invalid complainType: ${complaintType}`);
+    throw new Error(`Invalid complaintType: ${complaintType}`);
   }
   const newComplaint = await ComplaintModel.create({
     deviceId,
@@ -47,8 +47,22 @@ async function createComplaint({deviceId, complaintType}) {
   return newComplaint;
 }
 
+async function aggregateComplaintPoints(deviceId) {
+  let complaintPoints = 0;
+  const complaintsAgg = await ComplaintModel.aggregate([
+    {$match: {deviceId, timestamp: {$gte: new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000)}}},
+    {$group: {_id: '$complaintType', count: {$sum: 1}}},
+  ]);
+  for (const complaint of complaintsAgg) {
+    const {treeValue} = complaintTypes.find(_ => _.name === complaint._id);
+    complaintPoints += complaint.count * treeValue;
+  }
+  return complaintPoints;
+}
+
 module.exports = {
   ComplaintModel,
   complaintTypes,
   createComplaint,
+  aggregateComplaintPoints,
 };
