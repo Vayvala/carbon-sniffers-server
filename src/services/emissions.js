@@ -16,8 +16,9 @@ function calculateEmissions({homeType, transportType, carHoursPerDay}) {
   const homeKwh = homeTypes.find(_ => _.name === homeType).kwh;
   const carKwh = transportTypes.find(_ => _.name === transportType).kwh;
   const wasteEmissions = KG_OF_WASTE_MONTH * CO2_PER_KG_WASTE;
-  const electricityEmissions = homeKwh * CO2_PER_KWH;
-  const transportEmissions = carKwh * CO2_PER_KWH * carHoursPerDay * 30;
+  const electricityEmissions = homeKwh * CO2_PER_KWH / 1000;
+  const transportEmissions = carKwh * CO2_PER_KWH * carHoursPerDay * 30 / 1000;
+
   return wasteEmissions + electricityEmissions + transportEmissions;
 }
 

@@ -18,8 +18,16 @@ async function createUserEndpoint({req, res}) {
 async function getUserEmissionsEndpoint({req, res}) {
   const {deviceId} = req.query;
   const user = await UserModel.findOne({deviceId});
-  const emissions = calculateEmissions(user);
-  const treeQuota = calculateTreeQuota(emissions);
+  const co2Monthly = Math.round(calculateEmissions(user));
+  const co2Yearly = Math.round(calculateEmissions(user) * 12);
+  const co2Weekly = Math.round(calculateEmissions(user) / 4);
+  const treeQuota = calculateTreeQuota(co2Monthly);
   const complaintPoints = await aggregateComplaintPoints(deviceId);
-  return res.send({emissions, treeQuota, complaintPoints});
+  return res.send({
+    co2Weekly,
+    co2Monthly,
+    co2Yearly,
+    treeQuota,
+    complaintPoints,
+  });
 }
